@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Bitcoin Wallet Update</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Send Bitcoin Wallet Update</h2>
+    <form id="walletForm">
+
+        <label>User Name</label>
+        <input type="text" name="user_name" placeholder="e.g. John Doe" required>
+
+        <label>User Email</label>
+        <input type="email" name="user_email" placeholder="e.g. john@example.com" required>
+
+        <label>Wallet Balance</label>
+        <input type="text" name="wallet_balance" placeholder="$1,200.00" required>
+
+        <label>Wallet Status</label>
+        <input type="text" name="wallet_status" placeholder="Active / Pending / Suspended" required>
+
+        <label>Message</label>
+        <textarea name="message" rows="4" placeholder="Enter a custom message for the user..." required></textarea>
+
+        <button type="submit">Send Email</button>
+    </form>
+
+    <div id="message"></div>
+</div>
+
+<script>
+    // Initialize EmailJS
+    emailjs.init("JR36U5r94agdcJR7X"); // Your Public Key
+
+    document.getElementById("walletForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const messageDiv = document.getElementById("message");
+        messageDiv.innerHTML = "";
+
+        // Collect form data
+        const formData = {
+            user_name: this.user_name.value,
+            user_email: this.user_email.value,
+            wallet_balance: this.wallet_balance.value,
+            wallet_status: this.wallet_status.value,
+            message: this.message.value,
+            current_year: new Date().getFullYear()
+        };
+
+        // Send email
+        emailjs.send("service_gjqsnal", "template_ofqets3", formData)
+            .then(() => {
+                messageDiv.innerHTML = `<div class="success">✅ Email sent successfully!</div>`;
+                this.reset();
+            })
+            .catch((error) => {
+                console.error("EmailJS Error:", error);
+                messageDiv.innerHTML = `<div class="error">❌ Failed to send email. Please try again.</div>`;
+            });
+    });
+</script>
+
+</body>
+</html>
